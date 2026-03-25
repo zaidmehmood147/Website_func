@@ -3,9 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>GLOW | Premium Skin Rituals</title>
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+    <!-- Responsive Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">GLOW.</a>
+            <div class="nav-actions">
+                <a href="#collection" class="nav-link hide-mobile">SHOP</a>
+                <a href="login.html" class="nav-cta">ACCOUNT</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="pre-title">SCIENTIFIC PURITY</span>
+            <h1>Reveal Your <br><i class="italic">Natural Radiance</i></h1>
+            <p>Advanced formulas for the modern woman. Dermatologist approved, cruelty-free, and ethically sourced.</p>
+            
+            <div class="hero-btns">
+                <button class="btn-fill">SHOP RITUALS</button>
+                <button class="btn-outline">OUR STORY</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Brand Values (Logos) -->
+    <section class="brand-values">
+        <div class="value-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/3063/3063822.png" alt="Cruelty Free">
+            <span>CRUELTY FREE</span>
+        </div>
+        <div class="value-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/2553/2553642.png" alt="Organic">
+            <span>100% ORGANIC</span>
+        </div>
+        <div class="value-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/4333/4333624.png" alt="Derm Tested">
+            <span>DERM TESTED</span>
+        </div>
+        <div class="value-item">
+            <img src="https://cdn-icons-png.flaticon.com/512/2913/2913564.png" alt="Shipping">
+            <span>GLOBAL ELITE</span>
+        </div>
+    </section>
+
+    <!-- Product Grid Placeholder -->
+    <section class="collection" id="collection">
+        <div class="product-grid" id="productGrid">
+            <!-- Firebase products will load here -->
+        </div>
+    </section>
+
+    <script type="module" src="home.js"></script>
 </body>
 </html>
