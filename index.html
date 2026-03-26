@@ -129,6 +129,55 @@
     }
     .nav-btn:hover { background: var(--wine-light); transform: translateY(-1px); }
 
+    /* Hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 901;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--navy);
+      transition: transform .3s ease, opacity .3s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile menu overlay */
+    .mobile-menu {
+      display: none;
+      position: fixed; inset: 0; top: 72px;
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(20px);
+      z-index: 799;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .mobile-menu .nav-link {
+      font-size: 1rem;
+      letter-spacing: .28em;
+    }
+    .mobile-menu .nav-btn {
+      font-size: .8rem;
+      padding: .8rem 2.5rem;
+    }
+
     @keyframes fadeDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:none} }
 
     /* ── HERO ── */
@@ -242,8 +291,8 @@
       animation: fadeIn 1.2s ease 3.2s forwards;
     }
     .hero-bottle {
-      width: clamp(220px, 28vw, 400px);
-      height: clamp(320px, 42vw, 580px);
+      width: clamp(180px, 28vw, 400px);
+      height: clamp(260px, 42vw, 580px);
       background: linear-gradient(160deg, var(--lavender) 0%, #c5b4d6 40%, var(--wine-pale) 100%);
       border-radius: 50% 50% 44% 44% / 40% 40% 60% 60%;
       position: relative;
@@ -627,63 +676,6 @@
     }
     .testi-stars { color: var(--wine); font-size: .8rem; margin-bottom: .6rem; }
 
-    /* ── CTA BAND ── */
-    .cta-band {
-      background: linear-gradient(135deg, var(--wine) 0%, #4a1520 100%);
-      padding: clamp(4rem,8vw,7rem) clamp(1.5rem,5vw,5rem);
-      text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .cta-band::before {
-      content:'';
-      position:absolute; top:-50%; left:-10%;
-      width:120%; height:200%;
-      background: radial-gradient(ellipse at center, rgba(255,255,255,.06) 0%, transparent 60%);
-    }
-    .cta-band h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.2rem,5vw,5rem);
-      font-weight: 300;
-      color: var(--white);
-      margin-bottom: 1.2rem;
-      position: relative;
-    }
-    .cta-band p {
-      font-size: .8rem;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.6);
-      margin-bottom: 2.4rem;
-      position: relative;
-    }
-    .cta-band form { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; position: relative; }
-    .cta-band input {
-      font-family: 'Inter', sans-serif;
-      font-size: .8rem;
-      letter-spacing: .1em;
-      padding: 1rem 1.5rem;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.2);
-      color: var(--white);
-      width: clamp(220px, 35vw, 360px);
-      outline: none;
-      transition: border-color .3s;
-    }
-    .cta-band input::placeholder { color: rgba(255,255,255,.4); }
-    .cta-band input:focus { border-color: rgba(255,255,255,.5); }
-    .btn-white {
-      font-family: 'Inter', sans-serif;
-      font-size: .72rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--wine);
-      background: var(--white);
-      padding: 1rem 2rem;
-      border: none; cursor: pointer;
-      transition: transform .2s, box-shadow .3s;
-    }
-    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.3); }
-
     /* ── FOOTER ── */
     footer {
       background: var(--navy);
@@ -785,28 +777,77 @@
     .scroll-top:hover { transform: translateY(-4px); }
 
     /* ── RESPONSIVE ── */
+
+    /* Tablet landscape */
     @media (max-width: 1100px) {
       .products-grid { grid-template-columns: repeat(2,1fr); }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
     }
+
+    /* Tablet portrait */
     @media (max-width: 860px) {
-      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 100px; }
-      .hero-text { order: 2; }
-      .hero-visual { order: 1; margin-bottom: 2rem; }
-      .hero-actions { justify-content: center; }
-      .hero-stats { position: static; justify-content: center; margin-top: 3rem; }
-      .btn-primary, .btn-outline { width: 100%; text-align: center; }
-      .values-grid { grid-template-columns: 1fr 1fr; }
-      .ritual-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .testimonials-grid { grid-template-columns: 1fr 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 580px) {
-      .products-grid { grid-template-columns: 1fr; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .products-header { text-align: center; }
-      .footer-bottom { flex-direction: column; text-align: center; }
       .nav-link { display: none; }
+      .nav-btn { display: none; }
+      .nav-hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 100px;
+        padding-bottom: 6rem;
+        min-height: auto;
+      }
+      .hero-text { order: 2; }
+      .hero-visual {
+        order: 1;
+        margin-bottom: 2.5rem;
+      }
+      .hero-actions { justify-content: center; }
+      .hero-stats {
+        position: static;
+        justify-content: center;
+        margin-top: 3rem;
+        padding-bottom: 0;
+        gap: 2rem;
+      }
+      .btn-primary, .btn-outline { width: 100%; text-align: center; }
+
+      .ritual-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .ritual-desc { max-width: 100%; }
+
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    }
+
+    /* Mobile */
+    @media (max-width: 580px) {
+      .hero-title { font-size: clamp(2.6rem, 10vw, 3.5rem); }
+      .hero-bottle {
+        width: clamp(160px, 55vw, 260px);
+        height: clamp(230px, 80vw, 380px);
+      }
+      .bottle-ring { inset: -16px; }
+      .bottle-ring2 { inset: -32px; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+
+      .values-grid { grid-template-columns: 1fr; }
+
+      .products-grid { grid-template-columns: 1fr; }
+      .products-header { text-align: center; justify-content: center; flex-direction: column; align-items: center; }
+
+      .testimonials-grid { grid-template-columns: 1fr; }
+
+      .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-brand-desc { max-width: 100%; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    /* Very small screens */
+    @media (max-width: 380px) {
+      .hero-stats { flex-direction: column; align-items: center; gap: 1.2rem; }
+      .section { padding: clamp(3rem, 8vw, 5rem) 1.25rem; }
     }
   </style>
 </head>
@@ -829,12 +870,23 @@
 <nav>
   <a href="#" class="nav-logo">GLOW</a>
   <div class="nav-right">
-    <a href="#" class="nav-link">Collection</a>
-    <a href="#" class="nav-link">Ritual</a>
-    <a href="#" class="nav-link">About</a>
+    <a href="#products" class="nav-link">Collection</a>
+    <a href="./signup.html" class="nav-link">Sign up</a>
+    <a href="./login.html" class="nav-link">Login</a>
     <button class="nav-btn">My Account</button>
   </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" class="nav-link" onclick="closeMobileMenu()">Collection</a>
+  <a href="#" class="nav-link" onclick="closeMobileMenu()">Ritual</a>
+  <a href="#" class="nav-link" onclick="closeMobileMenu()">About</a>
+  <button class="nav-btn">My Account</button>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -853,20 +905,7 @@
       <div class="bottle-ring2"></div>
     </div>
   </div>
-  <div class="hero-stats">
-    <div>
-      <div class="hero-stat-num">98%</div>
-      <div class="hero-stat-label">Natural Ingredients</div>
-    </div>
-    <div>
-      <div class="hero-stat-num">12K+</div>
-      <div class="hero-stat-label">Happy Clients</div>
-    </div>
-    <div>
-      <div class="hero-stat-num">0</div>
-      <div class="hero-stat-label">Harmful Chemicals</div>
-    </div>
-  </div>
+  
 </section>
 
 <!-- MARQUEE -->
@@ -1052,16 +1091,6 @@
   </div>
 </section>
 
-<!-- CTA BAND -->
-<section class="cta-band">
-  <h2 class="reveal">Begin Your Ritual Today</h2>
-  <p class="reveal">Join the GLOW community — exclusive offers, skincare insights & early access.</p>
-  <div class="reveal">
-    <input type="email" placeholder="Your email address" />
-    <button class="btn-white">Subscribe</button>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
@@ -1100,7 +1129,7 @@
   </div>
   <div class="footer-divider"></div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2024 GLOW Skincare. All rights reserved. Karachi, Pakistan.</p>
+    <p class="footer-copy">© 2026 GLOW Skincare. All rights reserved. Karachi, Pakistan.</p>
     <p class="footer-credit">DESIGNED BY <strong>Zaid Mehmood</strong></p>
   </div>
 </footer>
@@ -1123,6 +1152,20 @@
   document.querySelectorAll('a,button').forEach(el=>{
     el.addEventListener('mouseenter',()=>{cursor.style.transform+=` scale(2)`;ring.style.opacity='0';});
     el.addEventListener('mouseleave',()=>{cursor.style.transform=cursor.style.transform.replace(' scale(2)','');ring.style.opacity='.5';});
+  });
+
+  /* Mobile menu */
+  const hamburger = document.getElementById('navHamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  function closeMobileMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
   /* Reveal on scroll */

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GLOW — Create Account</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --wine: #722F37; --wine-light: #8B3A44; --navy: #0A1128;
+      --pink: #FDF2F2; --lavender: #E6E6FA; --white: #FFFFFF;
+      --wine-pale: #F5E8EA; --text-muted: #888;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* ── LEFT PANEL ── */
+    .panel-left {
+      background: linear-gradient(160deg, #0A1128 0%, #1a2d5a 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 3rem;
+      position: relative; overflow: hidden;
+    }
+    .panel-left::before {
+      content:''; position:absolute; top:-10%; right:-15%;
+      width:450px; height:450px;
+      background: radial-gradient(circle, rgba(230,230,250,.07) 0%, transparent 65%);
+      border-radius:50%;
+    }
+    .panel-left::after {
+      content:''; position:absolute; bottom:-20%; left:-10%;
+      width:380px; height:380px;
+      background: radial-gradient(circle, rgba(114,47,55,.12) 0%, transparent 65%);
+      border-radius:50%;
+    }
+    .panel-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem,7vw,6rem);
+      font-weight: 300;
+      letter-spacing: .4em;
+      color: var(--white);
+      position: relative; z-index:1;
+      animation: fadeUp .9s ease .2s both;
+    }
+    .panel-tagline {
+      font-size: .68rem;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      margin-top: .8rem;
+      position: relative; z-index:1;
+      animation: fadeUp .9s ease .4s both;
+    }
+    .panel-divider {
+      width: 50px; height: 1px;
+      background: rgba(255,255,255,.15);
+      margin: 2rem 0;
+      position: relative; z-index:1;
+    }
+    .panel-perks { list-style:none; position:relative; z-index:1; }
+    .panel-perk {
+      display: flex; align-items: center; gap: .8rem;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      color: rgba(255,255,255,.5);
+      margin-bottom: .9rem;
+      animation: fadeUp .9s ease calc(.5s + var(--i)*.1s) both;
+    }
+    .perk-dot {
+      width: 6px; height: 6px;
+      background: var(--wine);
+      border-radius: 50%; flex-shrink:0;
+    }
+
+    /* ── RIGHT PANEL ── */
+    .panel-right {
+      background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      padding: clamp(2rem,5vw,4rem);
+      overflow-y: auto;
+    }
+    .form-container {
+      width: 100%; max-width: 420px;
+      animation: fadeUp .9s ease .3s both;
+    }
+    .form-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem,4vw,3rem);
+      font-weight: 300;
+      color: var(--navy);
+      margin-bottom: .5rem;
+      line-height: 1.15;
+    }
+    .form-heading em { font-style: italic; color: var(--wine); }
+    .form-sub {
+      font-size: .75rem;
+      letter-spacing: .14em;
+      color: var(--text-muted);
+      margin-bottom: 2.4rem;
+    }
+
+    .field { margin-bottom: 1.3rem; }
+    .field label {
+      display: block;
+      font-size: .65rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: .5rem;
+    }
+    .field input {
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      font-size: .88rem;
+      letter-spacing: .04em;
+      color: var(--navy);
+      background: var(--pink);
+      border: 1px solid transparent;
+      border-bottom: 1.5px solid rgba(10,17,40,.2);
+      padding: .9rem 1rem;
+      outline: none;
+      transition: border-color .3s, background .3s, box-shadow .3s;
+    }
+    .field input:focus {
+      border-color: var(--wine);
+      background: var(--white);
+      box-shadow: 0 4px 20px rgba(114,47,55,.08);
+    }
+    .field input::placeholder { color: #bbb; }
+
+    /* password strength bar */
+    .strength-bar {
+      height: 3px;
+      background: rgba(10,17,40,.1);
+      margin-top: .5rem;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .strength-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 2px;
+      transition: width .4s ease, background .4s ease;
+    }
+    .strength-label {
+      font-size: .62rem;
+      letter-spacing: .1em;
+      color: var(--text-muted);
+      margin-top: .25rem;
+    }
+
+    .error-box {
+      display: none;
+      background: var(--wine-pale);
+      border-left: 3px solid var(--wine);
+      padding: .85rem 1rem;
+      margin-bottom: 1.4rem;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      color: var(--wine);
+      animation: shake .4s ease;
+    }
+    .error-box.show { display: block; }
+    .success-box {
+      display: none;
+      background: #eaf6ee;
+      border-left: 3px solid #2e7d50;
+      padding: .85rem 1rem;
+      margin-bottom: 1.4rem;
+      font-size: .78rem;
+      letter-spacing: .06em;
+      color: #2e7d50;
+    }
+    .success-box.show { display: block; }
+
+    @keyframes shake {
+      0%,100%{transform:translateX(0)}
+      20%{transform:translateX(-6px)}
+      40%{transform:translateX(6px)}
+      60%{transform:translateX(-4px)}
+      80%{transform:translateX(4px)}
+    }
+
+    .btn-main {
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      font-size: .72rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--wine);
+      border: none; cursor: pointer;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      transition: background .3s, transform .2s, box-shadow .3s;
+      position: relative; overflow: hidden;
+    }
+    .btn-main::before {
+      content:''; position:absolute; inset:0;
+      background: rgba(255,255,255,.12);
+      transform: translateX(-100%);
+      transition: transform .5s ease;
+    }
+    .btn-main:hover::before { transform: translateX(0); }
+    .btn-main:hover {
+      background: var(--wine-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(114,47,55,.25);
+    }
+    .btn-main:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+
+    .btn-google {
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      font-size: .72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: transparent;
+      border: 1.5px solid rgba(10,17,40,.2);
+      cursor: pointer;
+      padding: 1rem;
+      display: flex; align-items: center; justify-content: center; gap: .7rem;
+      transition: border-color .3s, background .3s, transform .2s;
+    }
+    .btn-google:hover {
+      border-color: var(--navy);
+      background: var(--pink);
+      transform: translateY(-2px);
+    }
+    .g-icon { width: 18px; height: 18px; flex-shrink:0; }
+
+    .divider {
+      display: flex; align-items: center; gap: 1rem;
+      margin: 1.4rem 0;
+    }
+    .divider-line { flex:1; height:1px; background: rgba(10,17,40,.1); }
+    .divider-text { font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: #bbb; }
+
+    .terms {
+      font-size: .72rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.4rem;
+    }
+    .terms a { color: var(--wine); text-decoration: none; }
+    .terms a:hover { text-decoration: underline; }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 1.4rem;
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+    .form-footer a { color: var(--wine); text-decoration: none; font-weight: 500; }
+    .form-footer a:hover { text-decoration: underline; }
+
+    .spinner {
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,.3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      margin-right: .5rem;
+      vertical-align: middle;
+    }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+
+    @media (max-width: 720px) {
+      body { grid-template-columns: 1fr; }
+      .panel-left { padding: 2.5rem 2rem; min-height: 200px; }
+      .panel-brand { font-size: 3.5rem; }
+      .panel-perks { display: none; }
+      .panel-divider { display: none; }
+    }
+    @media (max-width: 400px) {
+      .panel-right { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT BRAND PANEL -->
+  <div class="panel-left">
+    <div class="panel-brand">GLOW</div>
+    <div class="panel-tagline">Scientific Purity</div>
+    <div class="panel-divider"></div>
+    <ul class="panel-perks">
+      <li class="panel-perk" style="--i:0"><span class="perk-dot"></span>Early access to new launches</li>
+      <li class="panel-perk" style="--i:1"><span class="perk-dot"></span>Personalised skincare routine</li>
+      <li class="panel-perk" style="--i:2"><span class="perk-dot"></span>Exclusive member discounts</li>
+      <li class="panel-perk" style="--i:3"><span class="perk-dot"></span>Free samples with every order</li>
+    </ul>
+  </div>
+
+  <!-- RIGHT FORM PANEL -->
+  <div class="panel-right">
+    <div class="form-container">
+      <h1 class="form-heading">Create Your<br><em>Account</em></h1>
+      <p class="form-sub">Join the GLOW community today</p>
+
+      <div class="error-box" id="errorBox"></div>
+      <div class="success-box" id="successBox"></div>
+
+      <div class="field">
+        <label for="emailInput">Email Address</label>
+        <input type="email" id="emailInput" placeholder="you@example.com" autocomplete="email"/>
+      </div>
+      <div class="field">
+        <label for="passwordInput">Password</label>
+        <input type="password" id="passwordInput" placeholder="Minimum 6 characters" autocomplete="new-password" oninput="checkStrength(this.value)"/>
+        <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+        <div class="strength-label" id="strengthLabel"></div>
+      </div>
+      <div class="field">
+        <label for="confirmInput">Confirm Password</label>
+        <input type="password" id="confirmInput" placeholder="Re-enter your password" autocomplete="new-password"/>
+      </div>
+
+      <p class="terms">By creating an account, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+
+      <button class="btn-main" id="signupBtn" onclick="handleSignup()">
+        Create Account
+      </button>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-text">or</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <button class="btn-google" id="googleBtn" onclick="handleGoogle()">
+        <svg class="g-icon" viewBox="0 0 48 48">
+          <path fill="#EA4335" d="M24 9.5c3.1 0 5.8 1.1 8 2.9l6-6C34.5 3.1 29.6 1 24 1 14.8 1 6.9 6.6 3.4 14.5l7 5.4C12 14.2 17.5 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.5-4.9 7.2l7.5 5.8C43.9 37.1 46.5 31.3 46.5 24.5z"/>
+          <path fill="#FBBC05" d="M10.4 28.1A14.7 14.7 0 019.5 24c0-1.4.2-2.8.6-4.1l-7-5.4A23.8 23.8 0 001 24c0 3.9.9 7.6 2.5 10.8l6.9-6.7z"/>
+          <path fill="#34A853" d="M24 47c5.5 0 10.2-1.8 13.6-4.9l-7.5-5.8c-1.8 1.2-4.1 1.9-6.1 1.9-6.4 0-11.9-4.4-13.8-10.3l-7 6.9C6.8 41.3 14.8 47 24 47z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <p class="form-footer">
+        Already have an account? <a href="login.html">Sign in</a>
+      </p>
+    </div>
+  </div>
+
+<script>
+  // Password strength checker (pure JS, no Firebase needed)
+  window.checkStrength = function(val) {
+    const fill  = document.getElementById('strengthFill');
+    const label = document.getElementById('strengthLabel');
+    let score = 0;
+    if (val.length >= 6)  score++;
+    if (val.length >= 10) score++;
+    if (/[A-Z]/.test(val)) score++;
+    if (/[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+
+    const levels = [
+      { w:'0%',   color:'transparent',   text:'' },
+      { w:'25%',  color:'#e74c3c',       text:'Weak' },
+      { w:'50%',  color:'#e67e22',       text:'Fair' },
+      { w:'75%',  color:'#f1c40f',       text:'Good' },
+      { w:'100%', color:'#2ecc71',       text:'Strong' },
+    ];
+    const l = levels[Math.min(score, 4)];
+    fill.style.width    = l.w;
+    fill.style.background = l.color;
+    label.textContent   = l.text;
+  };
+</script>
+
+<script type="module">
+  import {
+    signUpWithEmail,
+    signInWithGoogle,
+    getFriendlyError
+  } from "./auth.js";
+
+  function showError(msg) {
+    const box = document.getElementById('errorBox');
+    box.textContent = msg;
+    box.classList.add('show');
+    document.getElementById('successBox').classList.remove('show');
+  }
+  function showSuccess(msg) {
+    const box = document.getElementById('successBox');
+    box.textContent = msg;
+    box.classList.add('show');
+    document.getElementById('errorBox').classList.remove('show');
+  }
+  function setLoading(loading) {
+    const btn = document.getElementById('signupBtn');
+    btn.disabled = loading;
+    btn.innerHTML = loading
+      ? '<span class="spinner"></span> Creating Account...'
+      : 'Create Account';
+  }
+
+  window.handleSignup = async function() {
+    const email    = document.getElementById('emailInput').value.trim();
+    const password = document.getElementById('passwordInput').value;
+    const confirm  = document.getElementById('confirmInput').value;
+
+    if (!email || !password || !confirm) {
+      showError('Please fill in all fields.'); return;
+    }
+    if (password !== confirm) {
+      showError('Passwords do not match.'); return;
+    }
+    if (password.length < 6) {
+      showError('Password must be at least 6 characters.'); return;
+    }
+
+    setLoading(true);
+    try {
+      await signUpWithEmail(email, password);
+      showSuccess('Account created! Welcome to GLOW. Redirecting…');
+      setTimeout(() => window.location.href = 'index.html', 1500);
+    } catch (err) {
+      showError(getFriendlyError(err.code));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  window.handleGoogle = async function() {
+    const btn = document.getElementById('googleBtn');
+    btn.disabled = true;
+    btn.textContent = 'Opening Google…';
+    try {
+      await signInWithGoogle();
+      showSuccess('Signed up with Google! Redirecting…');
+      setTimeout(() => window.location.href = 'index.html', 1200);
+    } catch (err) {
+      showError(getFriendlyError(err.code));
+      btn.disabled = false;
+      btn.innerHTML = `
+        <svg class="g-icon" viewBox="0 0 48 48">
+          <path fill="#EA4335" d="M24 9.5c3.1 0 5.8 1.1 8 2.9l6-6C34.5 3.1 29.6 1 24 1 14.8 1 6.9 6.6 3.4 14.5l7 5.4C12 14.2 17.5 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.5-4.9 7.2l7.5 5.8C43.9 37.1 46.5 31.3 46.5 24.5z"/>
+          <path fill="#FBBC05" d="M10.4 28.1A14.7 14.7 0 019.5 24c0-1.4.2-2.8.6-4.1l-7-5.4A23.8 23.8 0 001 24c0 3.9.9 7.6 2.5 10.8l6.9-6.7z"/>
+          <path fill="#34A853" d="M24 47c5.5 0 10.2-1.8 13.6-4.9l-7.5-5.8c-1.8 1.2-4.1 1.9-6.1 1.9-6.4 0-11.9-4.4-13.8-10.3l-7 6.9C6.8 41.3 14.8 47 24 47z"/>
+        </svg>
+        Continue with Google`;
+    }
+  };
+</script>
+</body>
+</html>
