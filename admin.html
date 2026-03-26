@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GLOW — Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+<!-- ── SIDEBAR ── -->
+<aside class="admin-sidebar" id="adminSidebar">
+  <div class="sidebar-brand-area">
+    <div class="sidebar-brand-name">GLOW</div>
+    <div class="sidebar-brand-sub">Admin Panel</div>
+    <span class="sidebar-badge">Administrator</span>
+  </div>
+  <nav class="admin-nav">
+    <div class="nav-section-lbl">Management</div>
+    <a href="#addSection"      class="admin-nav-item active"><span class="admin-nav-icon">＋</span>Add Product</a>
+    <a href="#productsSection" class="admin-nav-item"><span class="admin-nav-icon">☰</span>All Products</a>
+    <div class="nav-section-lbl" style="margin-top:.7rem">Store</div>
+    <a href="index.html" class="admin-nav-item"><span class="admin-nav-icon">⌂</span>View Store</a>
+    <a href="login.html" class="admin-nav-item"><span class="admin-nav-icon">←</span>Back to Login</a>
+  </nav>
+  <div class="sidebar-footer-area">
+    <div class="admin-chip">
+      <div class="admin-avatar">A</div>
+      <div>
+        <div class="admin-name-lbl">Admin</div>
+        <div class="admin-role-lbl">Super Administrator</div>
+      </div>
+    </div>
+    <button class="logout-btn" onclick="window.location.href='login.html'">Sign Out</button>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="admin-main">
+  <div class="admin-topbar">
+    <div>
+      <div class="admin-topbar-title">Admin <span>Dashboard</span></div>
+    </div>
+    <div class="admin-topbar-date" id="topbarDate"></div>
+  </div>
+
+  <div class="admin-content">
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-card-num" id="statTotal">0</div><div class="stat-card-lbl">Total Products</div></div>
+      <div class="stat-card"><div class="stat-card-num">4</div><div class="stat-card-lbl">Categories</div></div>
+      <div class="stat-card"><div class="stat-card-num">12K+</div><div class="stat-card-lbl">Customers</div></div>
+      <div class="stat-card"><div class="stat-card-num" id="statRevenue">PKR 0</div><div class="stat-card-lbl">Catalogue Value</div></div>
+    </div>
+
+    <!-- ADD PRODUCT FORM -->
+    <div class="admin-card" id="addSection">
+      <div class="admin-card-header">
+        <div>
+          <div class="admin-card-title">Add <span>Product</span></div>
+          <div class="admin-card-sub">Fill all fields and submit to push to Firebase Realtime DB</div>
+        </div>
+      </div>
+
+      <div class="admin-form-grid">
+
+        <div class="admin-field">
+          <label for="prodName">Product Name <span class="req">*</span></label>
+          <input type="text" id="prodName" placeholder="e.g. Luminous Vitamin C Serum"/>
+          <div class="field-err" id="err-name">Product name is required.</div>
+        </div>
+
+        <div class="admin-field">
+          <label for="prodPrice">Price (PKR) <span class="req">*</span></label>
+          <input type="number" id="prodPrice" placeholder="e.g. 3800" min="0"/>
+          <div class="field-err" id="err-price">A valid price is required.</div>
+        </div>
+
+        <div class="admin-field">
+          <label for="prodCategory">Category <span class="req">*</span></label>
+          <select id="prodCategory">
+            <option value="">— Select Category —</option>
+            <option>Serums &amp; Actives</option>
+            <option>Moisturizers</option>
+            <option>Face Oils</option>
+            <option>Eye Care</option>
+            <option>SPF Protection</option>
+            <option>Cleansers</option>
+            <option>Toners</option>
+            <option>Gift Sets</option>
+          </select>
+          <div class="field-err" id="err-category">Please select a category.</div>
+        </div>
+
+        <div class="admin-field">
+          <label>Product Image <span class="req">*</span></label>
+          <div class="upload-zone" id="uploadZone">
+            <input type="file" id="prodImageFile" accept="image/*"/>
+            <img id="uploadPreview" class="upload-preview" alt="preview"/>
+            <button type="button" class="upload-remove" id="uploadRemove">✕</button>
+            <div class="upload-placeholder">
+              <div class="upload-icon">🖼</div>
+              <div class="upload-lbl">Click or drag &amp; drop</div>
+              <div class="upload-hint">JPG, PNG, WEBP — max 10 MB</div>
+            </div>
+          </div>
+          <div class="field-err" id="err-image">Please select a product image.</div>
+        </div>
+
+        <div class="admin-field full">
+          <label for="prodDesc">Description <span class="req">*</span></label>
+          <textarea id="prodDesc" rows="4" placeholder="Describe the product — ingredients, benefits, skin type, usage…"></textarea>
+          <div class="admin-field-hint">Minimum 10 characters recommended.</div>
+          <div class="field-err" id="err-desc">Description is required.</div>
+        </div>
+
+      </div><!-- /form-grid -->
+
+      <div class="admin-form-actions">
+        <button class="btn-admin-submit" id="submitBtn">Save to Firebase</button>
+        <button class="btn-admin-reset"  id="resetBtn">Clear Form</button>
+      </div>
+    </div><!-- /admin-card -->
+
+    <!-- PRODUCTS TABLE -->
+    <div class="admin-card" id="productsSection">
+      <div class="admin-card-header">
+        <div>
+          <div class="admin-card-title">All <span>Products</span></div>
+          <div class="admin-card-sub">Live sync from Firebase — deletions reflect on the store instantly</div>
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="products-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="productsTableBody">
+            <tr><td colspan="5" class="table-empty"><p>Loading products…</p></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /admin-content -->
+</main>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span id="toastIcon"></span>
+  <span id="toastMsg"></span>
+  <button class="toast-close" id="toastClose">✕</button>
+</div>
+
+<script type="module">
+  import {
+    addProduct, deleteProduct, listenProducts,
+    buildAdminRow, initCursor
+  } from "./app.js";
+
+  initCursor();
+
+  // ── Topbar date ──────────────────────────────────────────
+  document.getElementById('topbarDate').textContent =
+    new Date().toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+
+  // ── Sidebar toggle ───────────────────────────────────────
+  const sidebar = document.getElementById('adminSidebar');
+  document.getElementById('sidebarToggle').addEventListener('click', () => sidebar.classList.toggle('open'));
+  document.addEventListener('click', e => {
+    if (sidebar.classList.contains('open') &&
+        !sidebar.contains(e.target) &&
+        !document.getElementById('sidebarToggle').contains(e.target)) {
+      sidebar.classList.remove('open');
+    }
+  });
+
+  // ── Toast ────────────────────────────────────────────────
+  let toastTimer;
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent  = msg;
+    document.getElementById('toastIcon').textContent = type === 'success' ? '✓' : '✕';
+    t.className = `toast toast-${type} show`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 4200);
+  }
+  document.getElementById('toastClose').addEventListener('click', () => document.getElementById('toast').classList.remove('show'));
+
+  // ── Image upload ─────────────────────────────────────────
+  let uploadedBase64 = null;
+  const uploadZone   = document.getElementById('uploadZone');
+  const fileInput    = document.getElementById('prodImageFile');
+  const preview      = document.getElementById('uploadPreview');
+  const removeBtn    = document.getElementById('uploadRemove');
+
+  function loadFile(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    if (file.size > 10 * 1024 * 1024) { showToast('Image must be under 10 MB.','error'); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      uploadedBase64 = e.target.result;
+      preview.src    = uploadedBase64;
+      uploadZone.classList.add('has-image');
+      document.getElementById('err-image').classList.remove('show');
+    };
+    reader.readAsDataURL(file);
+  }
+  fileInput.addEventListener('change', () => loadFile(fileInput.files[0]));
+  removeBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    uploadedBase64 = null; preview.src = ''; fileInput.value = '';
+    uploadZone.classList.remove('has-image');
+  });
+  uploadZone.addEventListener('dragover',  e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+  uploadZone.addEventListener('dragleave', ()  => uploadZone.classList.remove('drag-over'));
+  uploadZone.addEventListener('drop', e => {
+    e.preventDefault(); uploadZone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) { const dt = new DataTransfer(); dt.items.add(file); fileInput.files = dt.files; loadFile(file); }
+  });
+
+  // ── Validation ───────────────────────────────────────────
+  function validate() {
+    let ok = true;
+    const rules = [
+      { id:'prodName',     errId:'err-name',     check: v => v.trim().length > 0 },
+      { id:'prodPrice',    errId:'err-price',     check: v => v !== '' && parseFloat(v) > 0 },
+      { id:'prodCategory', errId:'err-category',  check: v => v !== '' },
+      { id:null,           errId:'err-image',     check: () => uploadedBase64 !== null },
+      { id:'prodDesc',     errId:'err-desc',       check: v => v.trim().length >= 5 },
+    ];
+    rules.forEach(r => {
+      const el  = r.id ? document.getElementById(r.id) : null;
+      const err = document.getElementById(r.errId);
+      if (!r.check(el ? el.value : '')) {
+        err.classList.add('show');
+        if (el) el.style.borderBottomColor = 'var(--wine)';
+        ok = false;
+      } else {
+        err.classList.remove('show');
+        if (el) el.style.borderBottomColor = '';
+      }
+    });
+    return ok;
+  }
+
+  // ── Reset ────────────────────────────────────────────────
+  function resetForm() {
+    ['prodName','prodPrice','prodCategory','prodDesc'].forEach(id => {
+      const el = document.getElementById(id); el.value = ''; el.style.borderBottomColor = '';
+    });
+    document.querySelectorAll('.field-err').forEach(e => e.classList.remove('show'));
+    uploadedBase64 = null; preview.src = ''; fileInput.value = '';
+    uploadZone.classList.remove('has-image');
+  }
+  document.getElementById('resetBtn').addEventListener('click', resetForm);
+
+  // ── Submit ───────────────────────────────────────────────
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.addEventListener('click', async () => {
+    if (!validate()) return;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner"></span>Saving…';
+    try {
+      await addProduct({
+        name:        document.getElementById('prodName').value,
+        price:       document.getElementById('prodPrice').value,
+        description: document.getElementById('prodDesc').value,
+        imageUrl:    uploadedBase64,
+        category:    document.getElementById('prodCategory').value,
+      });
+      showToast(`Product saved to Firebase!`, 'success');
+      resetForm();
+    } catch (err) {
+      console.error(err);
+      showToast('Failed to save. Check your Firebase config.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Save to Firebase';
+    }
+  });
+
+  // ── Live product table (onValue) ─────────────────────────
+  const tbody = document.getElementById('productsTableBody');
+
+  async function handleDelete(id, name) {
+    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+    try {
+      await deleteProduct(id);
+      showToast(`"${name}" deleted.`, 'success');
+    } catch (err) {
+      showToast('Delete failed. Check permissions.', 'error');
+    }
+  }
+
+  import("./app.js").then(({ listenProducts, buildAdminRow }) => {
+    listenProducts(products => {
+      document.getElementById('statTotal').textContent = products.length;
+      const totalVal = products.reduce((s, p) => s + Number(p.price || 0), 0);
+      document.getElementById('statRevenue').textContent = 'PKR ' + totalVal.toLocaleString();
+
+      if (products.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="table-empty"><p>No products yet. Add your first one above.</p></td></tr>`;
+        return;
+      }
+      tbody.innerHTML = '';
+      products.forEach(p => tbody.appendChild(buildAdminRow(p, handleDelete)));
+    });
+  });
+</script>
+</body>
+</html>

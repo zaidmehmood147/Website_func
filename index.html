@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GLOW</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- PAGE LOADER -->
+<div id="page-loader">
+  <h1>GLOW</h1>
+  <div id="loader-line"></div>
+</div>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTopBtn" aria-label="Back to top">↑</button>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">GLOW</a>
+  <div class="nav-links">
+    <a href="#products"    class="nav-link">Collection</a>
+    <a href="#ritual"      class="nav-link">Ritual</a>
+    <a href="#values"      class="nav-link">About</a>
+    <a href="login.html"   class="nav-btn"  id="navAuthBtn">Account</a>
+  </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="nav-mobile" id="mobileMenu">
+  <a href="#products"  class="nav-link">Collection</a>
+  <a href="#ritual"    class="nav-link">Ritual</a>
+  <a href="#values"    class="nav-link">About</a>
+  <a href="login.html" class="nav-btn" id="mobileAuthBtn">Account</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+
+  <div class="hero-text">
+    <p class="hero-eyebrow">Est. 2024 · Karachi, Pakistan</p>
+    <h1 class="hero-title">Reveal Your<br><em>Natural</em><br>Radiance</h1>
+    <p class="hero-sub">Scientific Purity</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">Shop the Collection</a>
+      <a href="#ritual"   class="btn-outline">Our Ritual</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-bottle">
+      <div class="bottle-ring"></div>
+      <div class="bottle-ring2"></div>
+    </div>
+  </div>
+<!-- 
+  <div class="hero-stats">
+    <div><div class="stat-num" id="heroStat1">0%</div><div class="stat-lbl">Natural Ingredients</div></div>
+    <div><div class="stat-num" id="heroStat2">0</div><div class="stat-lbl">Happy Clients</div></div>
+    <div><div class="stat-num" id="heroStat3">0</div><div class="stat-lbl">Harmful Chemicals</div></div>
+  </div> -->
+</section>
+
+<!-- ── MARQUEE ── -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Cruelty-Free</span><span class="marquee-dot"> · </span>
+    <span class="marquee-item">Dermatologically Tested</span><span class="marquee-dot"> · </span>
+    <span class="marquee-item">Organic Ingredients</span><span class="marquee-dot"> · </span>
+    <span class="marquee-item">Vegan Formula</span><span class="marquee-dot"> · </span>
+    <span class="marquee-item">Sustainable Packaging</span><span class="marquee-dot"> · </span>
+    <span class="marquee-item">Clinical Results</span><span class="marquee-dot"> · </span>
+    <span class="marquee-item">Cruelty-Free</span><span class="marquee-dot"> · </span>
+    <span class="marquee-item">Dermatologically Tested</span><span class="marquee-dot"> · </span>
+    <span class="marquee-item">Organic Ingredients</span><span class="marquee-dot"> · </span>
+    <span class="marquee-item">Vegan Formula</span><span class="marquee-dot"> · </span>
+    <span class="marquee-item">Sustainable Packaging</span><span class="marquee-dot"> · </span>
+    <span class="marquee-item">Clinical Results</span><span class="marquee-dot"> · </span>
+  </div>
+</div>
+
+<!-- ── VALUES ── -->
+<section class="section values-section" id="values">
+  <div class="values-header">
+    <p class="section-eyebrow reveal">Our Promise</p>
+    <h2 class="section-title reveal reveal-d1">Rooted in Nature,<br>Backed by <em>Science</em></h2>
+  </div>
+  <div class="values-grid">
+    <div class="value-card reveal reveal-d1">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#722F37" stroke-width="1.4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="value-name">Cruelty-Free</div>
+      <div class="value-desc">Never tested on animals. Certified by Leaping Bunny &amp; PETA standards worldwide.</div>
+    </div>
+    <div class="value-card reveal reveal-d2">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#722F37" stroke-width="1.4"><path d="M12 2a10 10 0 010 20M12 2a10 10 0 000 20M2 12h20"/><path d="M12 2c-4 4-4 14 0 20M12 2c4 4 4 14 0 20"/></svg>
+      </div>
+      <div class="value-name">Organic</div>
+      <div class="value-desc">Sourced from certified organic farms. Pure botanicals at every formulation step.</div>
+    </div>
+    <div class="value-card reveal reveal-d3">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#722F37" stroke-width="1.4"><path d="M12 22V12M12 12C12 7 7 3 2 3s4 9 10 9zM12 12C12 7 17 3 22 3s-4 9-10 9z"/></svg>
+      </div>
+      <div class="value-name">Sustainable</div>
+      <div class="value-desc">Recyclable glass packaging and carbon-neutral supply chain. Beauty with a conscience.</div>
+    </div>
+    <div class="value-card reveal reveal-d4">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#722F37" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <div class="value-name">Clinically Tested</div>
+      <div class="value-desc">Validated by independent dermatologists. Visible results in 28 days guaranteed.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRODUCTS (Live Firebase) ── -->
+<section class="section products-section" id="products">
+  <div class="products-header">
+    <div>
+      <p class="section-eyebrow reveal">The Collection</p>
+      <h2 class="section-title reveal reveal-d1">Curated for<br>Every <em>Skin Type</em></h2>
+    </div>
+    <a href="#" class="btn-outline reveal">View All</a>
+  </div>
+  <!-- Grid injected by app.js via listenProducts() -->
+  <div class="products-grid" id="productsGrid">
+    <!-- Skeleton placeholders shown while loading -->
+    <div class="product-card product-skeleton">
+      <div class="product-card-img skeleton"></div>
+      <div class="product-card-info">
+        <div class="sk-name skeleton" style="height:15px;width:65%;margin-bottom:8px;"></div>
+        <div class="sk-cat skeleton"  style="height:11px;width:40%;margin-bottom:11px;"></div>
+        <div class="sk-price skeleton" style="height:16px;width:30%;"></div>
+      </div>
+    </div>
+    <div class="product-card product-skeleton">
+      <div class="product-card-img skeleton"></div>
+      <div class="product-card-info">
+        <div class="sk-name skeleton" style="height:15px;width:72%;margin-bottom:8px;"></div>
+        <div class="sk-cat skeleton"  style="height:11px;width:38%;margin-bottom:11px;"></div>
+        <div class="sk-price skeleton" style="height:16px;width:28%;"></div>
+      </div>
+    </div>
+    <div class="product-card product-skeleton">
+      <div class="product-card-img skeleton"></div>
+      <div class="product-card-info">
+        <div class="sk-name skeleton" style="height:15px;width:60%;margin-bottom:8px;"></div>
+        <div class="sk-cat skeleton"  style="height:11px;width:44%;margin-bottom:11px;"></div>
+        <div class="sk-price skeleton" style="height:16px;width:32%;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RITUAL ── -->
+<section class="section ritual-section" id="ritual">
+  <div class="ritual-inner">
+    <div class="ritual-text reveal">
+      <p class="section-eyebrow">The GLOW Method</p>
+      <h2 class="section-title">A Daily Ritual,<br><em>Perfected</em></h2>
+      <p class="ritual-desc">Science and luxury converge in every drop. Our four-step system works synergistically to reveal skin that doesn't just glow — it transforms.</p>
+      <div class="ritual-cta"><a href="#products" class="btn-inv">Discover the Collection</a></div>
+    </div>
+    <ul class="ritual-steps reveal reveal-d1">
+      <li class="ritual-step"><span class="step-num">01</span><div><div class="step-title">Cleanse &amp; Balance</div><div class="step-desc">Gentle micellar cleansing that removes impurities without stripping your skin's natural barrier.</div></div></li>
+      <li class="ritual-step"><span class="step-num">02</span><div><div class="step-title">Tone &amp; Refine</div><div class="step-desc">Alcohol-free mist packed with antioxidants to tighten pores and restore pH balance.</div></div></li>
+      <li class="ritual-step"><span class="step-num">03</span><div><div class="step-title">Treat &amp; Correct</div><div class="step-desc">Targeted actives penetrate deep to fade dark spots and boost collagen production.</div></div></li>
+      <li class="ritual-step"><span class="step-num">04</span><div><div class="step-title">Seal &amp; Protect</div><div class="step-desc">Barrier-locking moisturizer with SPF defence locks in actives and shields against UV damage.</div></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="section testi-section">
+  <div class="testi-header">
+    <p class="section-eyebrow reveal">Client Stories</p>
+    <h2 class="section-title reveal reveal-d1">Real Radiance,<br><em>Real Results</em></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal reveal-d1">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">My skin has never felt this balanced. The Luminous Serum faded my hyperpigmentation in under four weeks. Extraordinary.</p>
+      <div class="testi-author">— Zainab A., Lahore</div>
+    </div>
+    <div class="testi-card reveal reveal-d2">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">I've tried every luxury brand. GLOW is the first that genuinely lives up to its promise. The texture, the scent, the results — perfection.</p>
+      <div class="testi-author">— Sara M., Karachi</div>
+    </div>
+    <div class="testi-card reveal reveal-d3">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Cruelty-free AND clinically effective? GLOW changed my skincare philosophy entirely. Worth every rupee.</p>
+      <div class="testi-author">— Hira K., Islamabad</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA BAND ── -->
+<section class="cta-band">
+  <h2 class="reveal">Begin Your Ritual Today</h2>
+  <p class="reveal">Join the GLOW community — exclusive offers, skincare insights &amp; early access.</p>
+  <div class="cta-form reveal">
+    <input class="cta-input" type="email" placeholder="Your email address"/>
+    <button class="btn-white">Subscribe</button>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">GLOW</div>
+      <p class="footer-desc">A premium skincare brand built on the intersection of scientific innovation and the purest natural ingredients.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn">IG</a>
+        <a href="#" class="social-btn">FB</a>
+        <a href="#" class="social-btn">TK</a>
+        <a href="#" class="social-btn">YT</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Collections</div>
+      <ul class="footer-links">
+        <li><a href="#">Serums &amp; Actives</a></li>
+        <li><a href="#">Moisturizers</a></li>
+        <li><a href="#">Face Oils</a></li>
+        <li><a href="#">Eye Care</a></li>
+        <li><a href="#">SPF Protection</a></li>
+        <li><a href="#">Gift Sets</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">The Science</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Stockists</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Support</div>
+      <ul class="footer-links">
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="login.html">My Account</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2024 GLOW Skincare. All rights reserved. Karachi, Pakistan.</p>
+    <p class="footer-credit">DESIGNED BY <strong>Zaid Mehmood</strong></p>
+  </div>
+</footer>
+
+<!-- ── SCRIPTS ── -->
+<script type="module">
+  import {
+    listenProducts, buildProductCard,
+    onAuthChange, logOut,
+    initReveal, initCursor
+  } from "./app.js";
+
+  // ── Cursor ──
+  initCursor();
+
+  // ── Hamburger ──
+  const hamburger   = document.getElementById('hamburger');
+  const mobileMenu  = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', e => {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      mobileMenu.classList.remove('open');
+    }
+  });
+
+  // ── Scroll top ──
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', () => {
+    scrollBtn.classList.toggle('show', window.scrollY > 500);
+  });
+  scrollBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+  // ── Hero stat counters ──
+  function animateCount(el, target, suffix) {
+    let cur = 0; const dur = 2000; const step = 16;
+    const inc = target / (dur / step);
+    const t = setInterval(() => {
+      cur = Math.min(cur + inc, target);
+      el.textContent = Math.floor(cur) + suffix;
+      if (cur >= target) clearInterval(t);
+    }, step);
+  }
+  const statsObs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      animateCount(document.getElementById('heroStat1'), 98, '%');
+      animateCount(document.getElementById('heroStat2'), 12000, '+');
+      animateCount(document.getElementById('heroStat3'), 0, '');
+      statsObs.disconnect();
+    }
+  }, { threshold: .5 });
+  const statsEl = document.querySelector('.hero-stats');
+  if (statsEl) statsObs.observe(statsEl);
+
+  // ── Auth state → update navbar btn ──
+  onAuthChange(user => {
+    const btn  = document.getElementById('navAuthBtn');
+    const mBtn = document.getElementById('mobileAuthBtn');
+    if (user) {
+      if (btn)  { btn.textContent  = 'Sign Out'; btn.onclick  = () => logOut(); }
+      if (mBtn) { mBtn.textContent = 'Sign Out'; mBtn.onclick = () => logOut(); }
+    } else {
+      if (btn)  { btn.textContent  = 'Account'; btn.href  = 'login.html'; btn.onclick = null; }
+      if (mBtn) { mBtn.textContent = 'Account'; mBtn.href = 'login.html'; mBtn.onclick = null; }
+    }
+  });
+
+  // ── Live products from Firebase ──
+  const grid = document.getElementById('productsGrid');
+  let revealObserver = initReveal();
+
+  listenProducts(products => {
+    if (products.length === 0) {
+      grid.innerHTML = `
+        <div class="products-empty">
+          <h3>No Products Yet</h3>
+          <p>Visit the admin panel to add your first product.</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = products.map(p => buildProductCard(p)).join('');
+
+    // Re-observe new cards for scroll reveal
+    grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  });
+</script>
+</body>
+</html>
