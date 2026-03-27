@@ -68,7 +68,7 @@ const ERROR_MAP = {
 export function getFriendlyError(code) {
   return ERROR_MAP[code] || "Something went wrong. Please try again.";
 }
-
+//
 // ── ❹ AUTH FUNCTIONS ────────────────────────────────────────
 export async function signUpEmail(email, password) {
   return createUserWithEmailAndPassword(auth, email, password);
